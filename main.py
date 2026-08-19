@@ -5,6 +5,9 @@ load_dotenv()
 
 model = ChatGoogleGenerativeAI(model="gemini-3.6-flash")
 
-response = model.invoke("What is software testing in one line?")
+response = model.invoke("Explain the code in main.py")
 
-print(response.content)
+if isinstance(response.content, list):
+    print("".join(part.get("text", "") for part in response.content if isinstance(part, dict)))
+else:
+    print(response.content)
